@@ -1,0 +1,66 @@
+type Product {
+  name: String!,
+  description: String!,
+  url: String,
+  numberOfVotes: Int!,
+  publishedAt: String!,
+  author: User!,
+  categories: [Category!],
+}
+
+type User {
+  id: ID!,
+  userName: String!,
+  fullName: String!,
+  organization: Organization!,
+}
+
+type Organization {
+  id: ID!,
+  "name of the organization -- this is a single-line comment, which uses one pair of double-quotes; multi-line comments use triple pairs"
+  name: String!,
+}
+
+type Category {
+  id: ID!,
+  slug: String!,
+  name: String!,
+}
+
+input NewProduct {
+  name: String!,
+  description: String!,
+  url: String!,
+  categoriesIds: [ID!]!,
+}
+
+input NewCategory {
+  slug: String!
+  name: String!
+}
+
+type Query {
+  """
+  Get the name of this application
+  """
+  appName: String
+  # New query to return a list of products
+  """
+  Get all posted products
+  """
+  allProducts: [Product!]!
+  """
+  Get all products for a given author
+  """
+  productsByAuthor(authorName: String!): [Product!]!
+  """
+  Get all products for a given category
+  """
+  productsByCategory(slug: String!): [Product!]!
+}
+
+type Mutation {
+  createProduct(input: NewProduct): Product
+
+  createCategory(input: NewCategory!): Category!
+}
