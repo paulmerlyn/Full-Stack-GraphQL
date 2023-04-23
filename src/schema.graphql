@@ -1,4 +1,5 @@
 type Product {
+  id: String!,
   name: String!,
   description: String!,
   url: String,
@@ -49,6 +50,10 @@ type Query {
   Get all posted products
   """
   allProducts: [Product!]!
+  """
+  Get all categories
+  """
+  allCategories: [Category!]!
   """
   Get all products for a given author
   """

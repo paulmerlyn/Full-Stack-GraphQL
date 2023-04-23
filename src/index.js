@@ -2,6 +2,7 @@ const { ApolloServer, gql } = require('apollo-server')
 const { readSchema } = require('./schema.js')
 const { resolvers } = require('./resolvers.js');
 const { ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-server-core')
+const { categoriesLoader, usersLoader } = require('./dataloaders.js') // we would need apollo-server-express to make use of the Data Loader pattern
 
 const typeDefs = readSchema()
 

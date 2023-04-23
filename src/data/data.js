@@ -1,5 +1,6 @@
 const productsData = [
   {
+    id: "91",
     name: 'Educative',
     description: 'Interactive Courses for Software Developers',
     //url: 'https://educative.io/',
@@ -10,6 +11,7 @@ const productsData = [
     categories: ["1"],
   },
   {
+    id: "92",
     name: 'Apollo',
     description: 'The Apollo Data Graph Platform',
     url: 'https://www.apollographql.com/',
@@ -19,6 +21,7 @@ const productsData = [
     categories: ["2", "3"],
   },
   {
+    id: "93",
     name: 'OneGraph',
     description: 'Build Integrations 100x Faster',
     url: 'https://www.onegraph.com',

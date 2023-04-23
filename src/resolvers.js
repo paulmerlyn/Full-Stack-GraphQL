@@ -1,10 +1,13 @@
 const { productsData, usersData, categoriesData } = require('./data/data');
 const { UserInputError } = require('apollo-server');
-
 const mongoose = require('mongoose')
 const Product = require('./models/Product.js')
 const Category = require('./models/Category.js')
 const User = require('./models/User.js')
+
+async function run() {
+  await mongoose.connect('mongodb://localhost:27017'); // courtesy: https://masteringjs.io/tutorials/mongoose/using-insertone-in-mongoose
+}
 
 const resolvers = {
   Query: {
@@ -20,6 +23,10 @@ const resolvers = {
     //   return Product.find({})
     // },
 
+    allCategories: () => {
+      return categoriesData
+    },
+    
     productsByAuthor: (_, args) => {  // instead of using args in this way, we could alternatively use destructuring i.e. (_, { authorName }) => ...
       const user = usersData.find(user => user.userName === args.authorName)
       if (!user) throw new UserInputError('not a valid author userName')
@@ -36,7 +43,13 @@ const resolvers = {
 
   Mutation: {
     createProduct: async(_, { input } ) => {
-      const author = await User.findOne({userName: "ellen"})
+      const mongoDB = 'mongodb://user:pass@127.0.0.1:27017/products-db'
+
+      run()
+      console.log('Calling createProduct mutation with input: ', input)
+      //const author = await User.findOne({userName: "ellen"})
+      const author = await User.findById('3d6fad714086e3bfcfceac54').exec()
+      console.log('Found author is: ', author)
       return Product.create({
         name: input.name,
         description: input.description,
